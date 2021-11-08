@@ -1,6 +1,6 @@
 package Chapter4;
 
-public class exercise4_2 {
+public class Exercise4_2 {
     public static void main(String[] args) {
         int sum = 0;
         for (int x = 1; x <= 20; x++) {
