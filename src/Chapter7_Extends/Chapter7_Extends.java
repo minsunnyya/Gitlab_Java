@@ -1,3 +1,5 @@
+package Chapter7_Extends;
+
 class Tv{
     boolean power;
     int channel;
