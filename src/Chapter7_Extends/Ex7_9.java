@@ -19,7 +19,7 @@ class Tv2 extends Product2{
     }
 
 class Computer2 extends Product2{
-    Computer2 {super(200);}
+    Computer2() {super(200);}
     public String toString() {return "Computer";}
 }
 
