@@ -11,9 +11,12 @@ class SutdaDeck {
 //            if (j ==1||j==3||j==8)
 //                System.out.println("광");}
 
-        for(int i = 1; i<cards.length; i++)
-            boolean isKwang = (num == 1|| num == 2 || num == 8)
+        for(int i = 0; i<cards.length; i++) {
+            int num = i % 10 + 1;
+            boolean isKwang = (num == 1 || num == 2 || num == 8);
 
+            cards[i] = new SutdaCard(num, isKwang);
+        }
     }
 }
 
