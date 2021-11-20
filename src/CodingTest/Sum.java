@@ -1,6 +1,6 @@
 package CodingTest;
 
-class Solution {
+class Solution00 {
     public long solution(int a, int b) {
         long answer = 0;
 
