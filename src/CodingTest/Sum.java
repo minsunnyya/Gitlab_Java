@@ -1,5 +1,6 @@
 package CodingTest;
 
+<<<<<<< HEAD
 //class Solution00 {
 //    public long solution(int a, int b) {
 //        long answer = 0;
@@ -11,6 +12,19 @@ package CodingTest;
 //    }
 //}
 //
+=======
+class Solution00 {
+    public long solution(int a, int b) {
+        long answer = 0;
+
+        for(int x = ((a < b)?a:b);x<=((a<b)?b:a);x++)
+            answer+= x;
+
+        return answer;
+    }
+}
+
+>>>>>>> 232b3b4e6e528bc9bdf018e34b03ecdc3f62582d
 
 
 /*풀이방법
