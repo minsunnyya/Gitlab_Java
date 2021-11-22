@@ -42,7 +42,7 @@ public class Ex11_6 {
         char[] chArr = {'A','B','C','D','E'};
 
         System.out.println(Arrays.toString(chArr));
-        System.out.println(Arrays.binarySearch(chArr,'B'));//B가어디있냐?,정렬안해서 이상 
+        System.out.println(Arrays.binarySearch(chArr,'B'));//B가어디있냐?,정렬안해서 이상
         Arrays.sort(chArr);
         System.out.println(Arrays.toString(chArr));
         System.out.println(Arrays.binarySearch(chArr,'B'));
