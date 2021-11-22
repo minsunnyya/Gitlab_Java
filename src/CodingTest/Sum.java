@@ -1,16 +1,16 @@
 package CodingTest;
 
-class Solution {
-    public long solution(int a, int b) {
-        long answer = 0;
-
-        for(int x = ((a < b)?a:b);x<=((a<b)?b:a);x++)
-            answer+= x;
-
-        return answer;
-    }
-}
-
+//class Solution00 {
+//    public long solution(int a, int b) {
+//        long answer = 0;
+//
+//        for(int x = ((a < b)?a:b);x<=((a<b)?b:a);x++)
+//            answer+= x;
+//
+//        return answer;
+//    }
+//}
+//
 
 
 /*풀이방법
