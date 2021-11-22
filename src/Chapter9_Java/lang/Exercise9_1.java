@@ -25,9 +25,6 @@ class SutdaCard01 {
 
     }
 
-    public boolean equals(Object obj) {
-
-    }
 
     public String toString() {
         return num + (isKwang ? "k" : "");
