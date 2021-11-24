@@ -31,7 +31,7 @@ public class Ex11_18 {
 
         for(int i =0;i<bar.length;i++)
             bar[i]=ch;
-        
+
         return new String(bar);
     }
 }
