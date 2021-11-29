@@ -3,7 +3,11 @@
 //import java.util.ArrayList;
 //
 //class Customer implements Runnable {
+<<<<<<< HEAD
 ////    private Table table;
+=======
+//    private Table table;
+>>>>>>> 605d1ac3011975175d4326777241151bbac979b1
 //    private String food;
 //
 //    Customer(Table table, String food) {
