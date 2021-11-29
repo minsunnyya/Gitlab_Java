@@ -2,14 +2,28 @@ package Chapter14.Lambda_Stream;
 
 import java.util.function.Function;
 import java.util.*;
+import java.util.function.Supplier;
 
 public class Ex14_0 {
     public static void main(String[] args) {
-       //Function<String,Integer> f = (String s) -> Integer.parseInt(s);//입력도 있고 출력도 있으니까 function, 입력이 String출력이 Integer
-        //메서드 참조로 만들어보기
-        //Function<String,Integer> f = Integer::parseInt;
-        Function<String,Integer> f = (String s)->Integer.parseInt(s);
-        System.out.println(f.apply("100")+4);
+        //Supplier 입력없고 출력만 있음
+       // Supplier<MyClass> s = ()->new MyClass();//클래스 이름이 MyClass
+//        Supplier<MyClass> s = MyClass::new;
+//        Function<Integer, MyClass> s = (i)-> new MyClass(i);
+        Function<Integer, MyClass> s =MyClass::new;
+//        Function<int , MyClass> s = MyClass::iv;//Myclass에 입력도 만들고 출력도 만듬  Function써야함
+        MyClass mc = s.apply(100);
+        System.out.println(mc.iv);
+        //System.out.println(s.apply(100).iv);
 
+
+    }
+}
+
+class MyClass{
+    int iv;
+
+    MyClass(int iv){//생성자
+        this.iv=iv;
     }
 }
