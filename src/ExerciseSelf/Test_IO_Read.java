@@ -13,22 +13,63 @@ public class Test_IO_Read {
 
             BufferedReader br = new BufferedReader(fr);//생성한 스트림으로 버퍼 생성
 
-            List<String> lines = new ArrayList<String>();//ArrayList에 저장
-            String line = "";
 
-            while ((line = br.readLine()) != null) {//버퍼를 통해 한줄 한줄 리스트에 담음 
+
+            ArrayList<String> lines = new ArrayList<String>();//ArrayList에 저장
+            String line = "";
+            System.out.println(lines);
+            lines.add("10,스티브리,010123412310");
+
+            while ((line = br.readLine()) != null) {//버퍼를 통해 한줄 한줄 리스트에 담음
                 lines.add(line);
+
             }
             br.close();
 
             for (int i = 0; i < lines.size(); i++) {
-                System.out.println(i + "번 데이터 : " + lines.get(i));
+                System.out.println(lines.get(i));
+                //lines.add(9,"10,스티브리,0101234123");
             }
 
+            FileWriter fw = new FileWriter("Test_IO.txt2");//파일을 쓰기위해 객체 생성
+            ArrayList<String> data = lines;
+            fw.write(String.valueOf(data));
 
+            fw.close();
         } catch (Exception e) {
 
 
         }
     }
 }
+//class Test_IO_Class {
+//    //변수 선언
+//    String name;
+//    String tel;
+//
+//    Test_IO_Class() {
+//
+//    }//생성자 ;표시 없음
+//
+//    public Test_IO_Class(String name, String tel) {
+//        super();
+//        this.name = name;
+//        this.tel = tel;
+//    }
+//
+//    public String getName() {
+//        return name;
+//    }
+//
+//    public String
+//
+//    void setName() {
+//        this.tel = tel;
+//    }
+//
+//    @Override
+//    public String toString() {
+//        return "Test_IO_Class[name=" + name + ", tel" + tel + "]";
+//    }
+//
+//}
