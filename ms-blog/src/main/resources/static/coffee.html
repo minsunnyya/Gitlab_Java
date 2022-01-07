@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>점심식사를 저장하세요</title> <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+        body {
+            min-height: 100vh;
+            background: -webkit-gradient(linear, left bottom, right top, from(#92b5db), to(#1d466c));
+            background: -webkit-linear-gradient(bottom left, #92b5db 0%, #1d466c 100%);
+            background: -moz-linear-gradient(bottom left, #92b5db 0%, #1d466c 100%);
+            background: -o-linear-gradient(bottom left, #92b5db 0%, #1d466c 100%);
+            background: linear-gradient(to top right, #92b5db 0%, #1d466c 100%);
+        }
+
+        .input-form {
+            max-width: 680px;
+            margin-top: 80px;
+            padding: 32px;
+            background: #fff;
+            -webkit-border-radius: 10px;
+            -moz-border-radius: 10px;
+            border-radius: 10px;
+            -webkit-box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
+            -moz-box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
+            box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15)
+        }
+    </style>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script>
+//진입점
+
+        var p_id = getParam("id");
+        var type = "";
+
+        //파라미터 추출(상세 페이지)
+        function getParam(sname) {
+        var params = location.search
+            .substr(location.search.indexOf("?") + 1);
+        var sval = "";
+        params = params.split("&");
+
+        for (var i = 0; i < params.length; i++) {
+            temp = params[i].split("=");
+            if ([ temp[0] ] == sname) {
+            sval = temp[1];
+            }
+        }
+        return sval;
+        }
+
+        $(document).ready(function(){
+
+            if(p_id == "") {
+               //팝업 초기화
+               $("#menu").val("");
+               $("#price").val("");
+               $("#memo").val("");
+               $("#author").val("");
+               $("#aria").val("");
+               $("#date").val("");
+               type = "insert";
+
+               $("#deleteBtn").hide();
+
+
+            } else {
+                $.ajax({
+                  url: 'http://localhost:3001/tb_lunch/' + p_id,
+                  type: 'GET',
+                  data: {},
+                  dataType: 'json',
+                  success: function (data) {
+                    $("#menu").val(data.menu);
+                    $("#price").val(data.price);
+                    $("#memo").val(data.memo);
+                    $("#author").val(data.author);
+                    $("#aria").val(data.aria);
+                    $("#date").val(data.date);
+                    type = "update";
+
+                    $("#deleteBtn").show();
+                  }
+                });
+            }
+
+            $("#save").click(function(){//'save'라는 id를 가진 버튼을 클릭시 실행.
+
+                var jsonData = {
+                        menu      : $("#menu").val()
+                        , price       : $("#price").val()
+                        , memo       : $("#memo").val()
+                        , author    : $("#author").val()
+                        , aria    : $("#aria").val()
+                        , date    : $("#date").val()
+                }
+
+                if (type == "insert") {
+                    $.ajax({
+                    url:'http://localhost:3001/tb_lunch',
+                    type: 'post',
+                    data: jsonData,
+                    dataType:'json',
+                    success:function(data){
+                            alert('성공');
+                            
+                            var str = '';
+                            for(var name in data){
+                                str += '<li>'+data[name]+'</li>';
+                            }
+                            $('#timezones').html('<ul>'+str+'</ul>');
+                        }
+                    });
+                } else {
+                    //update
+                    $.ajax({
+                    url:'http://localhost:3001/tb_lunch/' + p_id,
+                    type: 'put',
+                    data: jsonData,
+                    dataType:'json',
+                    success:function(data){
+                            alert('업데이트 성공');
+                            window.close();
+                        }
+                    });
+                }
+               
+            });
+
+            $("#deleteBtn").click(function(){
+                if(confirm("삭제 하시겠습니까?")) {
+                    $.ajax({
+                    url:'http://localhost:3001/tb_lunch/' + p_id,
+                    type: 'delete',
+                    data: {},
+                    dataType:'json',
+                    success:function(data){
+                            alert('삭제되었습니다.');
+                            window.close();
+                        }
+                    });
+                } else {
+                    return;
+                }
+            });
+        });
+
+    </script>
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="input-form-backgroud row">
+            <div class="input-form col-md-12 mx-auto">
+                <button type="button" id="deleteBtn" class="btn btn-secondary" style="float: right;background-color: red;">Delete</button>
+                <h4 class="mb-3">점심식사 메뉴</h4>
+                
+                <div class="p-2 bd-highlight">
+                 
+                <form class="validation-form" novalidate>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="menu">식사메뉴</label> <input type="text" class="form-control" id="menu"
+                                placeholder="" value="" required>
+                            <div class="invalid-feedback">식사를 입력해주세요. </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="price">가격</label>
+                            <input type="number" class="form-control" id="price" placeholder="" value="" required>
+                            <div class="invalid-feedback"> 가격을 입력해주세요. </div>
+                        </div>
+                    </div>
+                    <div class="mb-3"> <label for="memo">한줄평</label>
+                        <input type="text" class="form-control" id="memo" placeholder="" required>
+                        <div class="invalid-feedback"> 한줄평을 입력해주세요. </div>
+                    </div>
+                    <div class="mb-3"> <label for="author">글쓴이</label> <input type="text" class="form-control"
+                            id="author" placeholder="" required>
+                        <div class="invalid-feedback"> 글쓴이를 입력해주세요. </div>
+                    </div>
+                        <div class="mb-3"> <label for="aria">지역</label> <select
+                                class="custom-select d-block w-100" id="aria">
+                                <option value=""></option>
+                                <option>정자</option>
+                                <option>판교</option>
+                                <option>모란</option>
+                        </select>
+                        <div class="mb-3"> <label for="date">날짜선택</label> <input type="date"
+                                class="form-control" id="date" placeholder="" required>
+                            <div class="invalid-feedback"> 먹은날짜를 입력해주세요. </div>
+
+    </style>
+  </head>
+  <body>
+                    <!-- <hr class="mb-4">
+                    <div class="custom-control custom-checkbox"> <input type="checkbox" class="custom-control-input"
+                            id="upload" required> <label class="custom-control-label" for="aggrement">업로드 하겠습니까?</label> </div> -->
+                    <div class="mb-4"></div> <button class="btn btn-primary btn-lg btn-block" id="save" name="save">식사메뉴 저장</button>
+                </form>
+            </div>
+        </div>
+        <footer class="my-3 text-center text-small">
+            <p class="mb-1">&copy; 2022 </p>
+        </footer>
+    </div>
+    <script> window.addEventListener('load', () => { const forms = document.getElementsByClassName('validation-form'); Array.prototype.filter.call(forms, (form) => { form.addEventListener('submit', function (event) { if (form.checkValidity() === false) { event.preventDefault(); event.stopPropagation(); } form.classList.add('was-validated'); }, false); }); }, false); </script>
+</body>
+
+</html>

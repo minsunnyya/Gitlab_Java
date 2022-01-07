@@ -1,0 +1,13 @@
+
+spring:
+  profiles: local
+
+  # Database
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://localhost:3306/msblog
+    username: root
+    password: 12345678
+# Server configuration
+server:
+  port: 0625

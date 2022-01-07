@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>하루동안 먹은 커피</title>
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <!-- Font Awesome icons (free version)-->
+        <script src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" crossorigin="anonymous"></script>
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i" rel="stylesheet" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="css/styles.css" rel="stylesheet" />
+    </head>
+    <body>
+        <header>
+            <h1 class="site-heading text-center text-faded d-none d-lg-block">
+                <span class="site-heading-upper text-primary mb-3">커피 몇잔 마셨나요?</span>
+                <span class="site-heading-lower">기록해주세요</span>
+            </h1>
+        </header>
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-dark py-lg-4" id="mainNav">
+            <div class="container">
+                <a class="navbar-brand text-uppercase fw-bold d-lg-none" href="index.html">Start Bootstrap</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="index.html">하루 몇 잔?</a></li>
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="recommnd.html">커피집 추천</a></li>
+                    
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    
+        <div class="container">
+            <div class="d-flex bd-highlight mb-3">
+              <div class="me-auto p-2 bd-highlight">
+                <h2 class="lunchsave">Coffee List
+              </div>
+              <div class="p-2 bd-highlight">
+                <button type="button" class="btn btn-secondary"  style="background-color:burlywood;"
+                  onclick="window.open('lunch.html','window_name','width=600,height=900,location=no,status=no,scrollbars=yes');">Create</button>
+
+              </div>
+
+            </div>
+
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th><label class="form-check-label"><input type="checkbox" name="checkRow" id="checkRow"></label></th>
+                    <th scope="col">#</th>
+                    <th scope="col">점심식사</th>
+                    <th scope="col">가격</th>
+                    <th scope="col">한줄평가</th>
+                    <th scope="col">글쓴이</th>
+                    <th scope="col">날짜</th>
+                  </tr>
+
+                <tbody id="mytable">
+                  <tr>
+                    <!-- <th scope> <input type="number" id="txtTitle" name="txtTitle" class="form-control form-control-sm"
+                        placeholder=""></th>
+                    <th scope="col"> <input type="number" id="txtTitle" name="txtTitle"
+                        class="form-control form-control-sm" placeholder=""></th>
+                    <th scope="col"> <input type="text" id="txtTitle" name="txtTitle"
+                        class="form-control form-control-sm" placeholder=""></th>
+                    <th scope="col"> <input type="number" id="txtTitle" name="txtTitle"
+                        class="form-control form-control-sm" placeholder=""></th>
+                    <th scope="col"> <input type="number" id="txtTitle" name="txtTitle"
+                        class="form-control form-control-sm" placeholder=""></th>
+                    <th scope="col"> <input type="number" id="txtTitle" name="txtTitle"
+                        class="form-control form-control-sm" placeholder=""></th> -->
+                  </tr>
+
+                </tbody> 
+
+
+            </div>
+            <!-- <div class="col-sm-3 p-3" >
+                                      </thead>
+                                      <tbody id="mytable">
+                                        <tr>
+                                          <th scope="row" colspan="5">Loading...</th>
+                                        </tr> 
+                                      </tbody>
+                                      </table>
+                                      </tbody>
+
+                                    </table>
+                                  </div> -->
+          </div>
+
+          <script src="index.js"></script>
+          <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.16/dist/sweetalert2.all.min.js"></script>
+          <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+            crossorigin="anonymous"></script>
+
+          <script>
+            $(document).ready(function () {
+
+              
+              //목록 조회 function 호출
+              getList();
+
+              //목록 조회 function
+              function getList() {
+                //ajax통신 
+                $.ajax({
+                  url: 'http://localhost:3001/tb_lunch',
+                  type: 'GET',
+                  data: {},
+                  dataType: 'json',
+                  success: function (data) {
+                    $('#mytable').empty();
+                    
+
+                    var tr = "";
+                    tr += "<tr>";
+                      for (var i = 0; i < data.length; i++) {
+
+                      // tr += "<tr>";
+                        
+                      tr += "<td>" + data[i].agree + "</td>";
+                      tr += "<td>" + data[i].id + "</td>";
+                      tr += "<td onclick='javascript:fnDetail(this)'><b>" + data[i].menu + "</b></td>";
+                      tr += "<td>" + data[i].price + "</td>";
+                      tr += "<td>" + data[i].memo + "</td>";
+                      tr += "<td>" + data[i].author + "</td>";
+                      tr += "<td>" + data[i].date + "</td>";
+                      tr += "</tr>";
+
+                    }
+
+                    $('#mytable').append(tr);
+                  }
+                });
+              }
+            });
+
+            function agree() {
+               var chkbox = document.getElementsByName('agree'); 
+               var chk = false; for(var i=0 ; i<chkbox.length ; i++) {
+                  if(chkbox[i].checked) { chk = true; } else { chk = false; } } 
+                  if(chk) { alert("모든 약관에 동의함."); 
+                  return false; } 
+                  else { alert("모든 약관에 동의해 주세요.") } }
+
+
+
+
+
+            //제목 클릭 시 이벤트
+            function fnDetail(obj) {
+              //글의 ID값 추출
+              var idnum = $(obj).parent().children().eq(0).text();
+
+              //창 열기
+              //location.href = './lunch.html?id=' + idnum;
+              window.open('lunch.html?id=' + idnum,'window_name','width=600,height=900,location=no,status=no,scrollbars=yes');
+
+            }
+
+          </script>
+        </body>
+
+        </html>
